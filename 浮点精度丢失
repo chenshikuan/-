@@ -1,0 +1,29 @@
+#include<iostream>
+#include<stdio.h>
+#include<algorithm>
+#include<cmath>
+
+
+const double eps = 1e-8;
+#define Equ(a,b) (fabs((a)-(b))<1e-8)
+#define More(a,b) ((a)-(b)>eps)
+#define Less(a,b) ((a)-(b)<-eps)
+#define MoreEqu(a,b) ((a)-(b)>-eps)
+#define LessEqu(a,b) ((a)-(b)<eps)
+
+
+int main()
+{
+	double db1 = 4 * asin(sqrt(2.0) / 2);
+	double db2 = 3 * asin(sqrt(3.0) / 2);
+	//if (db1==db2)改为这样则输出false
+	if (Equ(db1, db2))
+		printf("true");
+	else
+	{
+		printf("false");
+	}
+	system("pause");
+	return 0;
+}
+

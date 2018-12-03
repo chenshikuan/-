@@ -1,0 +1,53 @@
+/*
+问题描述：n皇后问题。n*n的棋盘中，每个棋子能在同一行或同一列或着同一条对角线上
+*/
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+
+const int maxn = 100;
+int P[maxn],n;
+bool hashTable[maxn] = {false};
+int num = 0;
+void generateP(int index)
+{
+	if (index == n + 1)
+	{
+		num++;//能够达到这里一定是合法的。
+		return;
+		
+	}
+	for (int x = 1; x <= n; x++)
+	{
+		if (hashTable[x] == false)
+		{
+			bool flag = true;
+			for (int pre = 1; pre < index; pre++)//判断现在将要放置的棋子是否和已经放置的棋子冲突
+				if (abs(P[pre] - x) == abs(pre - index))
+				{
+					flag = false;
+					break;
+				}
+			if (flag)
+			{
+				P[index] = x;
+				hashTable[x] = true;
+				generateP(index + 1);
+				hashTable[x] = false;
+			}
+				
+		}
+		
+	}
+}
+
+int main()
+{
+	n = 4;
+	
+	generateP(1);
+	printf("%d", num);
+	system("pause");
+	return 0;
+}
+

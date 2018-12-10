@@ -1,0 +1,118 @@
+/*
+线性表顺序存储
+*/
+#include<stdio.h>
+#include<algorithm>
+#include<cstdlib>
+using namespace std;
+
+
+
+class seqList{
+public:
+	seqList();
+	~seqList();
+	int getLength();
+	void clearAll();
+	int getData(int index);//得到下标为index的数据
+	int insertData(int data,unsigned int index);//把数据插入下标为index地方
+	int insertData(int data);
+	int deleteData(unsigned int index);
+
+private:
+	unsigned int len;//数据个数
+	unsigned int size;
+	int* datas ;
+
+};
+class chainList {
+
+};
+
+seqList::seqList() {
+	len = 0;
+	size = 20;
+	datas = (int*)malloc(size*sizeof(int));
+}
+int seqList::insertData(int data,unsigned int index ) {
+	if (index > len+1) {
+		printf("索引超出范围！");
+		return -1;
+	}
+
+	if (len>=size) {
+		size += 20;
+		datas = (int*)realloc(datas, size);
+	}
+	for (int i = len; i >=index; i--) {
+		datas[i] = datas[i - 1];
+	}
+	datas[index - 1] = data;
+	len++;
+	return 0;
+}
+
+int seqList::insertData(int data) {
+	if (len >= size) {
+		size += 20;
+		datas = (int*)realloc(datas, size);
+	}
+	datas[len] = data;
+	len++;
+	return 0;
+}
+
+int seqList::getLength() {
+	return len;
+}
+void seqList::clearAll() {
+	len = 0;
+	size = 20;
+	datas = (int*)realloc(datas, size);
+}
+int seqList::getData(int index) {
+	if (index > len) {
+		printf_s("超出索引范围");
+		return -1;
+	}
+	return datas[index - 1];
+		
+}
+int seqList::deleteData(unsigned int index) {
+	if (index > len) {
+		printf_s("索引超出范围");
+		return -1;
+	}
+	int res = datas[index - 1];
+	for (int i = index; i <= len; i++) {
+		datas[i - 1] = datas[i];
+	}
+	len--;
+	return res;
+}
+
+seqList::~seqList() {
+	free(datas);
+}
+
+
+
+int main()
+{
+	
+	seqList l ;
+	int len = l.getLength();
+	l.insertData(2);
+	l.insertData(3);
+	l.insertData(1, 1);
+	printf_s("输出链表中的数据:");
+	for (int i = 1; i <= l.getLength(); i++) {
+		printf_s("%d ",l.getData(i));
+	}
+	printf_s("\n");
+	printf_s("%d\n",l.deleteData(1));
+	l.clearAll();
+	system("pause");
+	return 0;
+	
+}
